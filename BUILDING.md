@@ -1,6 +1,6 @@
 # VM Images for kutti Hyper-V driver
 
-The following instructions are for manual building of images. For automated building, see PACKER.md.
+The following instructions are for manual building of images. For automated building, see [PACKER.md](PACKER.md).
 
 ## Base Setup
 

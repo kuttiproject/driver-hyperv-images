@@ -4,7 +4,7 @@ Each release from this repository contains .zip files for supported versions of 
 
 ## .zip files
 
-These files can be built by manually following the instructions in [BUILDING.md](BUILDING.md).
+These files can be built by manually following the instructions in [BUILDING.md](BUILDING.md), or by running the Packer scripts as detailed in [PACKER.md](PACKER.md).
 
 ## driver-hyperv-images.json
 

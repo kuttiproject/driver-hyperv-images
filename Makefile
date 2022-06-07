@@ -1,0 +1,49 @@
+VERSION_MAJOR ?= 0
+VERSION_MINOR ?= 1
+BUILD_NUMBER  ?= 0
+PATCH_NUMBER  ?= 
+VERSION_STRING = $(VERSION_MAJOR).$(VERSION_MINOR).$(BUILD_NUMBER)$(PATCH_NUMBER)
+
+OS_ISO_PATH ?= "iso/debian-11.3.0-amd64-netinst.iso"
+OS_ISO_CHECKSUM ?= "md5:e7a5a4fc5804ae65f7487e68422368ad"
+
+KUBE_VERSION ?=
+KUBE_VERSION_DESCRIPTION = $(or $(KUBE_VERSION),"latest")
+
+define VM_DESCRIPTION
+Kutti Hyper-V Image version $(VERSION_STRING)
+
+Debian base image: $(OS_ISO_PATH)
+Kubernetes version: $(KUBE_VERSION_DESCRIPTION)
+endef
+export VM_DESCRIPTION
+
+.PHONY: usage
+usage:
+	@echo "Usage: make step1|step2|clean-step1|clean-step2|clean"
+
+output-kutti-base/Virtual\ Machines/box.xml: kutti.step1.pkr.hcl
+	packer build -var "iso-url=$(OS_ISO_PATH)" -var "iso-checksum=$(OS_ISO_CHECKSUM)" $<
+
+output-kutti-hyperv/kutti-hyperv.vhdx: kutti.step2.pkr.hcl output-kutti-base/Virtual\ Machines/box.xml
+	packer build -var "vm-version=$(VERSION_STRING)" -var "vm-description=$$VM_DESCRIPTION" $<
+
+.PHONY: step1
+step1: output-kutti-base/Virtual\ Machines/box.xml
+
+.PHONY: step2
+step2: output-kutti-hyperv/kutti-hyperv.vhdx
+
+.PHONY: all
+all: step1 step2
+
+.PHONY: clean-step1
+clean-step1:
+	rm -r output-kutti-base/
+
+.PHONY: clean-step2
+clean-step2:
+	rd /s output-kutti-hyperv/
+
+.PHONY: clean
+clean: clean-step2 clean-step1

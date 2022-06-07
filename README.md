@@ -12,7 +12,7 @@ We will try and maintain images for the current Kubernetes version, and two earl
 
 ## Building Images
 
-Images can be built by manually following the instructions in [BUILDING.md](BUILDING.md).
+Images can be built by manually following the instructions in [BUILDING.md](BUILDING.md), or by running the Packer scripts as detailed in [PACKER.md](PACKER.md).
 
 ## Releases
 
