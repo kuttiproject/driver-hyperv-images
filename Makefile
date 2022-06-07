@@ -25,25 +25,25 @@ usage:
 output-kutti-base/Virtual\ Machines/box.xml: kutti.step1.pkr.hcl
 	packer build -var "iso-url=$(OS_ISO_PATH)" -var "iso-checksum=$(OS_ISO_CHECKSUM)" $<
 
-output-kutti-hyperv/kutti-hyperv.vhdx: kutti.step2.pkr.hcl output-kutti-base/Virtual\ Machines/box.xml
-	packer build -var "vm-version=$(VERSION_STRING)" -var "vm-description=$$VM_DESCRIPTION" $<
+output-kutti-hyperv/Virtual\ Hard\ Disks/kutti-base.vhdx: kutti.step2.pkr.hcl output-kutti-base/Virtual\ Machines/box.xml
+	packer build -var "vm-version=$(VERSION_STRING)" -var "kube-version=$KUBE_VERSION" $<
 
 .PHONY: step1
 step1: output-kutti-base/Virtual\ Machines/box.xml
 
 .PHONY: step2
-step2: output-kutti-hyperv/kutti-hyperv.vhdx
+step2: output-kutti-hyperv/Virtual\ Hard\ Disks/kutti-base.vhdx
 
 .PHONY: all
 all: step1 step2
 
 .PHONY: clean-step1
 clean-step1:
-	rm -r output-kutti-base/
+	rd /s output-kutti-base
 
 .PHONY: clean-step2
 clean-step2:
-	rd /s output-kutti-hyperv/
+	rd /s output-kutti-hyperv
 
 .PHONY: clean
 clean: clean-step2 clean-step1

@@ -19,9 +19,9 @@ second step can be run multiple times to generate images for different versions 
 4. Run `packer build kutti.step1.pkr.hcl` to generate an exported VM for a bare OS image.
 5. Run `packer -var "kube-version=DESIREDVERSION" kutti.step2.pkr.hcl`. Here, DESIREDVERSION is the kubernetes version, as it is published in the google debian repository for Kubernetes. If you leave out the `-var "kube-version=` part, the script will pick up the latest available Kubernetes version. Currently supported values are:
 
-* 1.24\* (The '*' is important)
-* 1.23*
-* 1.22*
+* 1.24
+* 1.23
+* 1.22
 
 ## Details
 
@@ -52,10 +52,14 @@ The second step is the script `kutti.step.pkr.hcl`. This starts from a VM import
 * Adds an icon
 * Exports to the final VHDX.
 
-## Makefile
+## Makefile or Invoke-Build script
 
-The steps described above can also be performed via a supplied makefile and GNU make.
+The steps described above can be performed via a supplied makefile and GNU make.
 `make step1` and `make step2` can be used.
+
+They can also be performed via the supplied build script **invoke.build.ps1** and
+[Invoke-Build](https://github.com/nightroman/Invoke-Build). You can use
+`Invoke-Build step1` and `Invoke-Build step1`.
 
 ## Compressing the .vhdx file
 

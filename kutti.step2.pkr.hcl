@@ -16,6 +16,8 @@ variable "vm-description" {
 source "hyperv-vmcx" "kutti-hyperv" {
     clone_from_vmcx_path="output-kutti-base"
 
+    headless = "true"
+
     ssh_username = "kuttiadmin"
     ssh_password = "Pass@word1"
     ssh_timeout = "20m"
@@ -28,7 +30,6 @@ source "hyperv-vmcx" "kutti-hyperv" {
     disk_block_size = "1"
     generation = "1"
 
-    # The output file should be called kutti-hyperv.vhdx
     vm_name = "kutti-hyperv"
 
     switch_name = "Default Switch"
@@ -89,16 +90,25 @@ build {
         #   * makes them executable
         #   * makes symbolic links in /usr/local/bin.
         # The cleanup script removes unneeded stuff.
+        # The stamp-kuttirelease script creates a 
+        # file /etc/kutti-release, which contains
+        # the versions of the components. 
         # The pre-compact script fills the VM hard
         # disk with zeroes, and the deletes the file.
         # This allows Hyper-V to compact the disk.
         scripts = [
             "buildscripts/process-scripts.sh",
             "buildscripts/cleanup.sh",
+            "buildscripts/stamp-kuttirelease.sh",
             "buildscripts/pre-compact.sh"
         ]
         # These scripts must be run with sudo access
         execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
 
+       # Ensure the VM_VERSION variable.
+        environment_vars = [
+            "VM_VERSION=${ var.vm-version }"
+        ]
+ 
     }
 }
