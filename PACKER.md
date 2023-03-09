@@ -2,6 +2,8 @@
 
 The images for this repository can be built using HashiCorp [Packer](https://www.packer.io/).
 
+> **NOTE:** On 2023-03-08, a problem was noticed while using packer 1.8.1 on Windows 11 Pro 22H2. Newly created VMs would not get IP addresses from Hyper-V. Issues [#45](https://github.com/hashicorp/packer-plugin-hyperv/issues/45) and [#65](https://github.com/hashicorp/packer-plugin-hyperv/issues/65) describe the problem. The solution found to work was to build the [packer hyper-v plugin](https://github.com/hashicorp/packer-plugin-hyperv) from the main branch on that date (commit hash 07b09589d78ee583891abc064d16f8edbbd8c13d), and place the compiled executable in the project directory, as described in [this comment](https://github.com/hashicorp/packer-plugin-hyperv/issues/65#issuecomment-1420237055) of issue #65.
+
 The build is done in two steps. The first step builds a base operating system image. The
 second step can be run multiple times to generate images for different versions of Kubernetes.
 

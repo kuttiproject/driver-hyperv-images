@@ -104,6 +104,8 @@ build {
         ]
         # These scripts must be run with sudo access
         execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
+        valid_exit_codes = [0, 2300218]
+        expect_disconnect = true
 
        # Ensure the VM_VERSION variable.
         environment_vars = [

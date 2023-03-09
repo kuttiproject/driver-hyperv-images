@@ -45,7 +45,7 @@ source "hyperv-iso" "kutti-base" {
     #     be set in the boot command.
     # Also see the commented preseed file to see what 
     # exactly gets installed and configured.
-    boot_wait = "25s"
+    boot_wait = "60s"
     boot_command = [
         "<esc><wait><esc><wait>",
         "install <wait>",

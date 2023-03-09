@@ -27,7 +27,7 @@ The following instructions are for manual building of images. For automated buil
 
 ## DHClient configuration for long lease
 
-18. Edit the file **/etc/dhcp/dhclient.conf**. Add the following to the end: `send dhcp-lease-time 604800;`. This is required because the driver uses the Default Switch in Hyper-V for all nodes, and receives IP addresses via DHCP. We want to avoid IP clashes if possible.
+18. Edit the file **/etc/dhcp/dhclient.conf**. Add the following to the end: `supersede dhcp-lease-time 604800;`. This is required because the driver uses the Default Switch in Hyper-V for all nodes, and receives IP addresses via DHCP. We want to avoid IP clashes or changes if possible, by holding on to the DHCP lease for a longer period.
 
 ## Clean up uneeded software
 

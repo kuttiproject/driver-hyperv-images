@@ -52,4 +52,4 @@ adduser user1 sudo
 
 # Add a long DHCP lease
 echo "# Long lease added by kutti setup" >> /etc/dhcp/dhclient.conf
-echo "send dhcp-lease-time 604800;" >> /etc/dhcp/dhclient.conf
+echo "supersede dhcp-lease-time 604800;" >> /etc/dhcp/dhclient.conf
