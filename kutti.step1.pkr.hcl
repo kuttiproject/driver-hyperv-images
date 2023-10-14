@@ -1,20 +1,20 @@
 variable "iso-url" {
     # Location of the base debian netinst iso
     type = string
-    default = "./iso/debian-11.3.0-amd64-netinst.iso"
+    default = "./iso/debian-12.2.0-amd64-netinst.iso"
 }
 
 variable "iso-checksum" {
     # Checksum of the base debian netinst iso
     type = string
-    default = "md5:42c43392d108ed8957083843392c794b"
+    default = "sha256:23ab444503069d9ef681e3028016250289a33cc7bab079259b73100daee0af66"
 }
 
 source "hyperv-iso" "kutti-base" {
     # Before using this script, you need to obtain a debian
     # netinst ISO, and put it in a folder called "iso".
     # The iso name and its checksum should be updated here.
-    # The last build used debian 10.6.0.
+    # The last build used debian 12.2.0.
     iso_url = "${ var.iso-url }"
     iso_checksum = "${ var.iso-checksum }"
 
