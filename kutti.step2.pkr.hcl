@@ -1,3 +1,12 @@
+packer {
+  required_plugins {
+    hyperv = {
+      source  = "github.com/hashicorp/hyperv"
+      version = "~> 1"
+    }
+  }
+}
+
 variable "kube-version" {
     type = string
     default = env("KUBE_VERSION")

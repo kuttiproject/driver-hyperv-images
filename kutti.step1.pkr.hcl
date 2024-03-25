@@ -1,3 +1,12 @@
+packer {
+  required_plugins {
+    hyperv = {
+      source  = "github.com/hashicorp/hyperv"
+      version = "~> 1"
+    }
+  }
+}
+
 variable "iso-url" {
     # Location of the base debian netinst iso
     type = string
@@ -45,7 +54,7 @@ source "hyperv-iso" "kutti-base" {
     #     be set in the boot command.
     # Also see the commented preseed file to see what 
     # exactly gets installed and configured.
-    boot_wait = "60s"
+    boot_wait = "30s"
     boot_command = [
         "<esc><wait><esc><wait>",
         "install <wait>",
