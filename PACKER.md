@@ -17,13 +17,9 @@ second step can be run multiple times to generate images for different versions 
 
 1. Create a folder called `iso` in the current directory.
 2. Download a Debian netinst ISO file into this directory.
-3. Update the file `kutti.step1.pkr.hcl` with the path and checksum of this file.
-4. Run `packer build kutti.step1.pkr.hcl` to generate an exported VM for a bare OS image.
-5. Run `packer -var "kube-version=DESIREDVERSION" kutti.step2.pkr.hcl`. Here, DESIREDVERSION is the kubernetes version, as it is published in the google debian repository for Kubernetes. If you leave out the `-var "kube-version=` part, the script will pick up the latest available Kubernetes version. Currently supported values are:
-
-* 1.24
-* 1.23
-* 1.22
+3. Obtain the path and SHA256 checksum of this file.
+4. Run `packer build -var iso-url=PATH -var iso-checksum=CHECKSUM kutti.step1.pkr.hcl` to generate an exported VM for a bare OS image.
+5. Run `packer build -var "kube-version=DESIREDVERSION" kutti.step2.pkr.hcl`. Here, DESIREDVERSION is the kubernetes version, as it is published in the google debian repository for Kubernetes. 
 
 ## Details
 
@@ -69,4 +65,4 @@ The .vhdx file produced by the second step should be renamed to **kutti-\<kubern
 
 ## Publishing a release
 
-Collect the .vhdx files for the supported versions, and create a `driver-hyperv-images.json` file describing them. Then publish a GitHub release, and upload the `driver-hyperv-images.json` file and the .vhdx files to it. Details can be found in [RELEASE.md](RELEASE.md).
+Collect the .zip files for the supported versions, and create a `driver-hyperv-images.json` file describing them. Then publish a GitHub release, and upload the `driver-hyperv-images.json` file and the .vhdx files to it. Details can be found in [RELEASE.md](RELEASE.md).

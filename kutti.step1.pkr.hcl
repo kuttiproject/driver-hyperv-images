@@ -10,13 +10,11 @@ packer {
 variable "iso-url" {
     # Location of the base debian netinst iso
     type = string
-    default = "./iso/debian-12.7.0-amd64-netinst.iso"
 }
 
 variable "iso-checksum" {
     # Checksum of the base debian netinst iso
     type = string
-    default = "sha256:8fde79cfc6b20a696200fc5c15219cf6d721e8feb367e9e0e33a79d1cb68fa83"
 }
 
 source "hyperv-iso" "kutti-base" {
@@ -62,7 +60,7 @@ source "hyperv-iso" "kutti-base" {
 #        "priority=critical <wait>",
         "fb=false <wait>",
         "auto=true <wait>",
-        "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed_bullseye.cfg <wait>",
+        "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed_bookworm.cfg <wait>",
         "domain=kuttiproject.org <wait>",
         "hostname=kutti <wait>",
         "<enter><wait>"
